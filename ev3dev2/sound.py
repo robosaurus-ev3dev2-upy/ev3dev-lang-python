@@ -337,7 +337,9 @@ class Sound(object):
             out = check_output(['amixer', 'scontrols']).decode()
             m = re.search(r"'(?P<channel>[^']+)'", out)
             if m:
-                self.channel = m.group('channel')
+                # current "re" in micropy can only support number indexed group
+                self.channel = m.group(1)
+                #self.channel = m.group('channel')
             else:
                 self.channel = 'Playback'
 
